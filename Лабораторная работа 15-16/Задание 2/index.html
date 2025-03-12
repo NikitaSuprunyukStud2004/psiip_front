@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мини-игра на JavaScript</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            overflow: hidden;
+        }
+
+        canvas {
+            border: 1px solid #ffffff;
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        // Класс Player
+        class Player {
+            constructor(width, height) {
+                this.width = 30;
+                this.height = 30;
+                this.x = width / 2 - this.width / 2;
+                this.y = height - this.height - 10;
+                this.speed = 5;
+                this.color = 'green';
+                this.canvasWidth = width; // Сохраняем ширину canvas
+            }
+
+            move(direction) {
+                // Учитываем ширину canvas, сохраненную в свойстве this.canvasWidth
+                if (direction === 'left' && this.x > 0) {
+                    this.x -= this.speed;
+                } else if (direction === 'right' && this.x + this.width < this.canvasWidth) {
+                    this.x += this.speed;
+                }
+            }
+
+            draw(ctx) {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+            }
+        }
+
+        // Класс Obstacle
+        class Obstacle {
+            constructor(width) {
+                this.width = Math.random() * 50 + 20;
+                this.height = 20;
+                this.x = Math.random() * (width - this.width);
+                this.y = -this.height;
+                this.speed = Math.random() * 2 + 2;
+                this.color = 'red';
+            }
+
+            update() {
+                this.y += this.speed;
+            }
+
+            draw(ctx) {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+            }
+        }
+
+        // Класс Game
+        class Game {
+            constructor() {
+                this.canvas = document.getElementById('gameCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.width = 400;
+                this.height = 600;
+                this.canvas.width = this.width;
+                this.canvas.height = this.height;
+                this.player = new Player(this.width, this.height);
+                this.obstacles = [];
+                this.interval = null;
+                this.score = 0;
+                this.gameOver = false;
+
+                this.start();
+                this.bindEvents();
+            }
+
+            start() {
+                this.interval = setInterval(() => this.update(), 20);
+                this.spawnObstacle();
+            }
+
+            bindEvents() {
+                window.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        this.player.move('left');
+                    } else if (e.key === 'ArrowRight') {
+                        this.player.move('right');
+                    }
+                });
+            }
+
+            spawnObstacle() {
+                setInterval(() => {
+                    if (!this.gameOver) {
+                        this.obstacles.push(new Obstacle(this.width));
+                    }
+                }, 1500);
+            }
+
+            update() {
+                if (this.gameOver) return;
+                this.clear();
+                this.player.draw(this.ctx);
+                this.updateObstacles();
+                this.checkCollisions();
+                this.drawScore();
+            }
+
+            clear() {
+                this.ctx.clearRect(0, 0, this.width, this.height);
+            }
+
+            updateObstacles() {
+                this.obstacles.forEach((obstacle, index) => {
+                    obstacle.update();
+                    obstacle.draw(this.ctx);
+
+                    // Удаляем препятствие, если оно выходит за нижний край
+                    if (obstacle.y > this.height) {
+                        this.obstacles.splice(index, 1);
+                        this.score++;
+                    }
+                });
+            }
+
+            checkCollisions() {
+                this.obstacles.forEach((obstacle) => {
+                    if (
+                        this.player.x < obstacle.x + obstacle.width &&
+                        this.player.x + this.player.width > obstacle.x &&
+                        this.player.y < obstacle.y + obstacle.height &&
+                        this.player.height + this.player.y > obstacle.y
+                    ) {
+                        this.endGame();
+                    }
+                });
+            }
+
+            drawScore() {
+                this.ctx.fillStyle = 'white';
+                this.ctx.font = '20px Arial';
+                this.ctx.fillText(`Score: ${this.score}`, 10, 20);
+            }
+
+            endGame() {
+                this.gameOver = true;
+                clearInterval(this.interval);
+                this.ctx.fillStyle = 'white';
+                this.ctx.font = '30px Arial';
+                this.ctx.fillText('Game Over!', this.width / 2 - 70, this.height / 2);
+            }
+        }
+
+        // Инициализация игры
+        const game = new Game();
+    </script>
+</body>
+</html>
