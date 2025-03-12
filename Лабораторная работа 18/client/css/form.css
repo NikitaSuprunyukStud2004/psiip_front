@@ -1,0 +1,31 @@
+.Form {
+    display: grid;
+    grid-template-columns: max-content min-content;
+    column-gap: 15px;
+    row-gap: 15px;
+    width: max-content;
+    margin: 0px auto 50px auto;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: aliceblue;
+}
+
+.Form h3 {
+    display: inline;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: 0px;
+    text-align: center;
+}
+
+.Form p {
+    display: inline;
+    margin: 0px 5px 10px 0px;
+}
+
+.Form button {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    width: 50%;
+    margin: auto;
+}

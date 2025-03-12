@@ -1,0 +1,48 @@
+.DataBase {
+    width: 100%;
+    min-width: max-content;
+    font-size: 14px;
+    border-radius: 10px;
+    border-spacing: 0;
+    text-align: center;
+}
+
+.DataBase th {
+    background: #00751d;
+    color: white;
+    text-shadow: 0 1px 1px #2D2020;
+    padding: 10px 20px;
+}
+
+.DataBase th,
+td {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+}
+
+.DataBase th:first-child {
+    border-top-left-radius: 10px;
+}
+
+.DataBase th:last-child {
+    border-top-right-radius: 10px;
+    border-right: none;
+}
+
+.DataBase td {
+    padding: 10px 20px;
+    background: #d1f4a8;
+}
+
+.DataBase tr:last-child td:first-child {
+    border-radius: 0 0 0 10px;
+}
+
+.DataBase tr:last-child td:last-child {
+    border-radius: 0 0 10px 0;
+}
+
+.DataBase tr td:last-child {
+    border-right: none;
+}

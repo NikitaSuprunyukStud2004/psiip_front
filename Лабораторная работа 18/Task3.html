@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 3: RegExp</title>
+</head>
+<body>
+    <h2>RegExp Examples</h2>
+
+    <button onclick="runRegExpTests()">Run RegExp Tests</button>
+
+    <script>
+        function runRegExpTests() {
+            // Test different flags
+            const regex = /hello/gi; // Global, case-insensitive
+            const text = "Hello World, hello people!";
+            const result = text.match(regex);
+            alert(`Matches: ${result}`); // ["Hello", "hello"]
+
+            // Using test() method
+            const pattern = /world/i;
+            const isMatch = pattern.test("Hello world");
+            alert(`Pattern test result: ${isMatch}`); // true
+
+            // Using exec() method
+            const execResult = pattern.exec("Hello world");
+            alert(`Exec result: ${execResult}`); // ["world"]
+
+            // Using split() method
+            const fruits = "apple, orange, banana";
+            const splitResult = fruits.split(/,\s*/);
+            alert(`Split result: ${splitResult}`); // ["apple", "orange", "banana"]
+
+            // Using match() method
+            const numbers = "1 apple, 2 bananas".match(/\d+/g);
+            alert(`Matched numbers: ${numbers}`); // ["1", "2"]
+
+            // Using search() method
+            const searchIndex = "Hello World".search(/world/i);
+            alert(`Search index: ${searchIndex}`); // 6
+
+            // Using replace() method
+            const newText = "Visit Microsoft".replace(/Microsoft/, "Google");
+            alert(`Replaced text: ${newText}`); // "Visit Google"
+        }
+    </script>
+</body>
+</html>
