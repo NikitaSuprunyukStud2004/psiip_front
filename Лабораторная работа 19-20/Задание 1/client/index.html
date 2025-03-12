@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Интернет-магазин</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Каталог товаров</h1>
+    <div id="cart-icon">
+      🛒 Корзина (<span id="cart-count">0</span>)
+    </div>
+  </header>
+
+  <main>
+    <section id="product-list">
+      <!-- Список товаров будет загружен через JavaScript -->
+    </section>
+    <aside id="cart-display">
+      <h2>Ваша корзина</h2>
+      <div id="cart-items"></div>
+      <div id="cart-total">Итого: $0.00</div>
+      <button id="checkout-button">Оформить заказ</button>
+    </aside>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

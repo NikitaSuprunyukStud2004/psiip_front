@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сохранение данных в Local Storage</title>
+</head>
+<body>
+    <h2>Введите ваши данные</h2>
+    <form id="userForm">
+        <label>ФИО: <input type="text" id="name" required></label><br><br>
+        <label>Электронная почта: <input type="email" id="email" required></label><br><br>
+        <label>Дата рождения: <input type="date" id="dob" required></label><br><br>
+        <label>Место рождения: <input type="text" id="birthplace"></label><br><br>
+        <label>Увлечения: <textarea id="hobbies"></textarea></label><br><br>
+        <button type="button" onclick="saveData()">Сохранить данные</button>
+        <button type="button" onclick="loadData()">Загрузить данные</button>
+        <button type="button" onclick="clearLocalStorage()">Очистить данные</button>
+    </form>
+
+    <div id="output"></div>
+
+    <script src="js/localStorageScript.js"></script>
+</body>
+</html>
